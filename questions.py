@@ -1,15 +1,11 @@
 # MODULE FOR ASKING QUESTIONS FROM CONSOLE AND CONVERTING ANSWERS
 
-# LIBRARIES AND MODULES
-import kuntoilija
 # CLASS DEFINITIONS
 class Question:
     """A class containing methods to ask questions on console and convert answers to various datatypes.
     """
     def __init__(self, input_msg):
         self.input_msg = input_msg
-
-    
 
     def get_input_float(self, loop=True) -> tuple:
         """Convert input to float
@@ -83,25 +79,11 @@ class Question:
                 else:
                     return result
 
-
+    def test_fail(self):
+        inp = int(input(self.input_msg))
+        return inp + 1
+    
 if __name__ == '__main__':
-    # nimi_question = Question('Anna nimi').get_input_float('Anna nimi: ', True)
-    # nimi = nimi_question[0]
-    # nimi = input('Anna nimi: ')
-    # pituus_question = Question('Anna pituus: ').get_input_float()
-    # pituus = pituus_question[0]
-    # paino_question = Question('Anna paino: ').get_input_float()
-    # paino = paino_question[0]
-    # sukupuoli_question = Question('Sukupuoli, 1 jos mies, 0 jos nainen: ').get_input_float()
-    # sukupuoli = sukupuoli_question[0]
-    # ika_question = Question('Anna ika: ').get_input_float()
-    # ika = ika_question[0]
-
-    # kuntoilija1 = kuntoilija.Kuntoilija(nimi, pituus, paino, ika, sukupuoli)
-    # print(kuntoilija1.nimi.title(), 'Painoindeksi:', kuntoilija1.bmi)
-    # kuntoilija2 = kuntoilija.Kuntoilija(nimi, pituus, paino, ika, sukupuoli)
-    # print(kuntoilija2.nimi.title(), 'ja', kuntoilija2.bmi)
-    # print(pituus_question)
 
     question = Question('Kuinka paljon painat? (kg) ')
     answer_and_error = question.get_input_float(False)
