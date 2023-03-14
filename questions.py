@@ -8,7 +8,7 @@ class Question:
         self.input_msg = input_msg
 
     @staticmethod
-    def get_user_integer(input_msg, loop) -> tuple:
+    def get_input_integer(input_msg, loop) -> tuple:
             """Convert input to integer
             Args:
                 loop (bool, optional): Loop until proper input. Defaults to True.
@@ -18,8 +18,8 @@ class Question:
             while True:
                 input_value = input(input_msg)
                 try:
-                    input_float = int(input_value)
-                    result = (input_float, 'OK', 0, 'Conversion successful')
+                    input_int = int(input_value)
+                    result = (input_int, 'OK', 0, 'Conversion successful')
                     return result
                 except Exception as e:
                     result = (0, 'Error', 1, str(e))
@@ -40,6 +40,7 @@ class Question:
         while True:
             input_value = input(input_msg)
             try:
+                input_value = input_value.replace(',', '.')
                 input_float = float(input_value)
                 result = (input_float, 'OK', 0, 'Conversion successful')
                 return result
@@ -51,27 +52,6 @@ class Question:
                 else:
                     return result
 
-    # def get_input_integer(self, loop=True) -> tuple:
-    #         """Convert input to integer
-    #         Args:
-    #             is_name (bool, optional): Is input a name. Defaults to False.
-    #             loop (bool, optional): Loop until proper input. Defaults to True.
-    #         Returns:
-    #             tuple: (converted_value(int), error_msg(str), error_code(int), detailed_message(str))
-    #         """
-    #         while True:
-    #             input_value = input(self.input_msg)
-    #             try:
-    #                 input_float = int(input_value)
-    #                 result = (input_float, 'OK', 0, 'Conversion successful')
-    #                 return result
-    #             except Exception as e:
-    #                 result = (0, 'Error', 1, str(e))
-    #                 print('Virhe arvossa, syötä vain lukuja.', str(e))
-    #                 if loop:
-    #                     continue
-    #                 else:
-    #                     return result
 
     @staticmethod
     def get_input_boolean(input_msg, true_value, false_value, loop=True) -> tuple:
@@ -101,15 +81,41 @@ class Question:
                     continue
                 else:
                     return result
-    
+                
+    @staticmethod
+    def ask_user_dictionary(input_msg: str, dictionary: dict, loop=True) -> tuple:
+        """Returns a value based on dictionary
+        Args:
+            question (str): Ask user question
+            dictionary (dict): Possible answers in key-value-pairs
+        Returns:
+            tuple: (answer as correct type, error_msg(str), error_code(int), detailed_message(str))
+        """
+        while True:
+            input_value = input(input_msg).lower()
+            try:
+                value = dictionary[input_value]
+                result = (value, 'OK', 0,  'Conversion successful')
+                return result
+
+            except Exception as e:
+                print('Virhe arvossa.', str(e))
+                result = ('N/A', 'Error', 1, str(e))    
+                print(result)
+                if loop:
+                    continue
+                else:
+                    return result
+        
 if __name__ == '__main__':
 
-    question = Question('Kuinka paljon painat? (kg) ')
-    answer_and_error = question.get_input_float(False)
+    answer_and_error = Question.get_input_float('Kuinka paljon painat? (kg) ', True)
     print(answer_and_error)
-    question2 = Question('Kuinka vanha olet? ')
-    answer_and_error2 = question2.get_input_integer(True)
-    print(answer_and_error2)
-    question3 = Question('Haluatko lähteä viikonlopun viettoon? ')
-    answer_and_error3 = question3.get_input_boolean('Y', 'N')
-    print(answer_and_error3)
+    answer_and_error = Question.get_input_integer('Kuinka vanha olet? ', True)
+    print(answer_and_error)
+    answer_and_error = Question.get_input_boolean('Haluatko lähteä viikonlopun viettoon? ', 'Y', 'N')
+    print(answer_and_error)
+
+    gender_dictionary = {'tyttö': 0, 'poika': 1, 'nainen': 0, 'mies': 1}
+    answer_and_error = Question.ask_user_dictionary('Sukupuoli: ', gender_dictionary)
+    print(answer_and_error)
