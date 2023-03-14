@@ -30,18 +30,12 @@ import questions
 
 name = input('Nimi: ')
 
-question = questions.Question('Paino? ')
-weight = question.get_input_float()[0]
-question = questions.Question('Pituus? ')
-height = question.get_input_float()[0]
-question = questions.Question('Ikä? ')
-age = question.get_input_integer()[0]
-question = questions.Question('Sukupuoli, 1 mies, 2 nainen: ')
-gender = question.get_input_integer()[0]
-question = questions.Question('Kaulanympärys (cm): ')
-neck = question.get_input_float()[0]
-question = questions.Question('Vyötärönympärys (cm): ')
-waist = question.get_input_float()[0]
+weight = questions.Question.get_input_float('Paino? ')[0]
+height = questions.Question.get_input_float('Pituus? ')[0]
+age = questions.Question.get_input_integer('Ikä? ')[0]
+gender = questions.Question.get_input_integer('Sukupuoli, 1 mies, 0 nainen: ')[0]
+neck = questions.Question.get_input_float('Kaulanympärys (cm): ')[0]
+waist = questions.Question.get_input_float('Vyötärönympärys (cm): ')[0]
 
 if gender == 0:
     question = questions.Question('Mikä on lantionympäryksesi: ')
@@ -52,6 +46,7 @@ athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender)
 text_to_show = f'Terve {athlete.nimi}, painoindeksisi tänään on {athlete.bmi}'
 print(text_to_show)
 fat_percentage = athlete.rasvaprosentti()
+
 if gender == 1:
     usa_fat_percentage = athlete.usa_rasvaprosentti_mies(height, waist, neck)
 else:
