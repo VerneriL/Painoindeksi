@@ -57,6 +57,8 @@ text_to_show = f'suomalainen rasva-% on {fat_percentage} ja amerikkalainen on {u
 print(text_to_show)
 
 
+
+
 # if __name__ == '__main__':
 #     kuntoilija1 = kuntoilija.Kuntoilija(nimi, pituus, paino, ika, sukupuoli)
 #     print(kuntoilija1.nimi.title(), 'Painoindeksi:', kuntoilija1.bmi)
