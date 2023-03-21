@@ -8,7 +8,7 @@ class Question:
         self.input_msg = input_msg
 
     @staticmethod
-    def get_input_integer(input_msg, loop) -> tuple:
+    def get_input_integer(input_msg, loop=True) -> tuple:
             """Convert input to integer
             Args:
                 loop (bool, optional): Loop until proper input. Defaults to True.

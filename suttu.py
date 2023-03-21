@@ -10,20 +10,7 @@ import json
 # current = datetime.datetime.now()
 # print(current)
 
-# def date_diff(d1, d2):
-#     d1 = datetime.datetime.strptime(d1, "%Y-%m-%d")
-#     d2 = datetime.datetime.strptime(d2, "%Y-%m-%d")
-#     return abs((d2-d1).days)
 
-# ero = date_diff('2023-03-17', '2023-01-20')
-# print(ero)
-
-# def time_diff(t1, t2):
-#     t1 = datetime.datetime.strptime(t1, "%H:%M:%S")
-#     t2 = datetime.datetime.strptime(t2, "%H:%M:%S")
-#     second = abs((t2-t1).seconds)
-#     hours = second / 3600
-#     return hours
 
 # kesto = time_diff('10:00:00', '14:30:00')
 # print(kesto)

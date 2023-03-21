@@ -1,34 +1,11 @@
 # BASIC USER INFORMATION
+import json
 import kuntoilija
 import questions
 
 
-# def get_input(input_msg, is_name=False, loop=True):
-#     while loop:
-#         if is_name:
-#             input_value = input(input_msg)
-#             result = (input_value, 'OK', 0, 'Conversion successful')
-#             return result
-#         try:
-#             input_value = float(input(input_msg))
-#             result = (input_value, 'OK', 0, 'Conversion successful')
-#             return result
-#         except Exception as e:
-#             result = (0, 'Error', 1, str(e))
-#             print('Virhe arvossa, syötä vain lukuja.', str(e))
-
-# nimi_question = get_input('Anna nimi: ', True)
-# nimi = nimi_question[0]
-# pituus_question = get_input('Anna pituus: ')
-# pituus = pituus_question[0]
-# paino_question = get_input('Anna paino: ')
-# paino = paino_question[0]
-# sukupuoli_question = get_input('Sukupuoli, 1 jos mies, 0 jos nainen: ')
-# sukupuoli = sukupuoli_question[0]
-# ika_question = get_input('Anna ika: ')
-# ika = ika_question[0]
-
 name = input('Nimi: ')
+date_of_weighing = input('Date (vvvv-kk-pp): ')
 
 weight = questions.Question.get_input_float('Paino? ')[0]
 height = questions.Question.get_input_float('Pituus? ')[0]
@@ -38,10 +15,9 @@ neck = questions.Question.get_input_float('Kaulanympärys (cm): ')[0]
 waist = questions.Question.get_input_float('Vyötärönympärys (cm): ')[0]
 
 if gender == 0:
-    question = questions.Question('Mikä on lantionympäryksesi: ')
-    hips = question.get_input_float()[0]
+    hips = questions.Question.get_input_float('Mikä on lantionympäryksesi: ')[0]
 
-athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender)
+athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, date_of_weighing)
 
 text_to_show = f'Terve {athlete.nimi}, painoindeksisi tänään on {athlete.bmi}'
 print(text_to_show)
@@ -56,11 +32,22 @@ else:
 text_to_show = f'suomalainen rasva-% on {fat_percentage} ja amerikkalainen on {usa_fat_percentage}'
 print(text_to_show)
 
+print('nimi', athlete.nimi, 'paino', athlete.paino)
 
+with open('athlete_data.json', 'r') as file:
+    athlete_data = json.load(file)
+    for item in athlete_data:
+        print('Paino oli:', item['paino'])
 
+athlete_data_row = {
+    'nimi': athlete.nimi, 
+    'pituus': athlete.pituus, 
+    'paino': athlete.paino, 
+    'ika': athlete.ika, 
+    'sukupuoli': athlete.sukupuoli, 
+    'pvm':athlete.punnitus_paiva
+}
+athlete_data.append(athlete_data_row)
 
-# if __name__ == '__main__':
-#     kuntoilija1 = kuntoilija.Kuntoilija(nimi, pituus, paino, ika, sukupuoli)
-#     print(kuntoilija1.nimi.title(), 'Painoindeksi:', kuntoilija1.bmi)
-#     kuntoilija2 = kuntoilija.Kuntoilija(nimi, pituus, paino, ika, sukupuoli)
-#     print(kuntoilija2.nimi.title(), 'ja', kuntoilija2.bmi, nimi_question)
+with open('athlete_data.json', 'w') as file:
+    json.dump(athlete_data, file, indent=4)
